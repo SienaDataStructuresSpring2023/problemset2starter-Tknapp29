@@ -11,8 +11,8 @@ public class StockHolding
     private String symbol;
     private String name;
     private int numShares;
-    private int price;
-    public StockHolding(String symbol, String name, int numShares, int price) {
+    private double price;
+    public StockHolding(String symbol, String name, int numShares, double price) {
         this.symbol = symbol;
         this.name = name;
         this.numShares = numShares;
@@ -55,7 +55,7 @@ public class StockHolding
      * @return the stock price
      * 
      */
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -66,9 +66,10 @@ public class StockHolding
      * @return price to buy shares
      * 
      */
-    public int buyShares(int shares, int pricePerShare)
+    public double buyShares(int shares, double pricePerShare)
     {
-        return shares*pricePerShare;
+        double theShares = shares;
+        return theShares*pricePerShare;
     }
 
     /**
@@ -78,9 +79,10 @@ public class StockHolding
      * @return symbol
      * 
      */
-    public int sharesToSell(int shares)
+    public double sharesToSell(int shares)
     {
-        return shares*price;
+        double theShares = shares;
+        return theShares*price;
     }
 
     /**

@@ -8,9 +8,9 @@ import java.util.Scanner;
  */
 public class Portfolio
 {
-    private ArrayList<StockHolding> stocks;
-    private int lifeTime;
-    private int lifeTimePayout;
+    public ArrayList<StockHolding> stocks;
+    private double lifeTime;
+    private double lifeTimePayout;
 
     public Portfolio()
     {
@@ -19,19 +19,19 @@ public class Portfolio
         this.lifeTimePayout = 0;
     }
 
-    public int getLifeTime()
+    public double getLifeTime()
     {
         return lifeTime;
     }
 
-    public int lifeTimePayout()
+    public double getLifeTimePayout()
     {
         return lifeTimePayout;
     }
 
-    public int buyStock(String symbol, String name, int numShares,int pricePerShare)
+    public double buyStock(String symbol, String name, int numShares,double pricePerShare)
     {
-        int finalPrice = 0;
+        double finalPrice = 0.0;
         if(stocks.contains(getIndex(symbol)))
         {
             finalPrice = numShares*pricePerShare;
@@ -43,11 +43,34 @@ public class Portfolio
             stocks.add(newStock);
         }
         return finalPrice;
+
     }
 
-    public int sellStock(String symbol, int sharesToSell)
+    public double sellStock(String symbol, int shares)
     {
-        return -1;
+        double finalPrice = 0.0;
+        for(StockHolding s : stocks)
+        {
+            if(stocks.contains(getIndex(symbol)))
+            {
+                finalPrice = s.sharesToSell(shares);
+            }
+            if(s.getNumShares() <= 0)
+            {
+                stocks.remove(s);
+            }
+        }
+        return finalPrice;
+    }
+
+    public double getCurrentValue()
+    {
+        double currentValue = 0.0;
+        for(StockHolding s : stocks)
+        {
+            currentValue = currentValue + s.getNumShares()*s.getPrice();
+        }
+        return currentValue;
     }
 
     private int getIndex(String symbol)
