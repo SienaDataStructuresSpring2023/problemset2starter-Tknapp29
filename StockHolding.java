@@ -3,7 +3,7 @@ import java.util.Scanner;
  * This class will hold information about a stock.
  *
  * @author Tyler
- * @version 2/23/23
+ * @version Spring 2023
  */
 public class StockHolding
 {
@@ -12,6 +12,7 @@ public class StockHolding
     private String name;
     private int numShares;
     private double price;
+
     public StockHolding(String symbol, String name, int numShares, double price) {
         this.symbol = symbol;
         this.name = name;
@@ -22,8 +23,7 @@ public class StockHolding
     /**
      * Returns the stock symbol
      * 
-     * @return symbol
-     * 
+     * @return the stock symbol
      */
     public String getSymbol() {
         return symbol;
@@ -32,8 +32,7 @@ public class StockHolding
     /**
      * Returns the stock name
      * 
-     * @return name
-     * 
+     * @return the stock name
      */
     public String getName() {
         return name;
@@ -42,7 +41,7 @@ public class StockHolding
     /**
      * Returns the number of stock shares
      * 
-     * @return number of stock shares
+     * @return the number of stock shares
      * 
      */
     public int getNumShares() {
@@ -68,8 +67,12 @@ public class StockHolding
      */
     public double buyShares(int shares, double pricePerShare)
     {
-        double theShares = shares;
-        return theShares*pricePerShare;
+        if(price >= pricePerShare)
+        {
+            price = pricePerShare;
+        }
+        numShares += shares;
+        return shares*pricePerShare;
     }
 
     /**
@@ -79,16 +82,20 @@ public class StockHolding
      * @return symbol
      * 
      */
-    public double sharesToSell(int shares)
+    public double sellShares(int shares)
     {
-        double theShares = shares;
-        return theShares*price;
+        if(shares <= numShares)
+        {
+            numShares -= shares;
+            return shares*price;
+        }
+        return 0.0;
     }
 
     /**
-     * Returns the method to string
+     * Returns the method toString
      * 
-     * @return toString
+     * @return the method toString
      * 
      */
     @Override
