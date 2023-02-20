@@ -39,7 +39,7 @@ public class Portfolio
 
     /**
      * This method will buy stock shares with however many shares and price the user inputs. It will search the array list to see if can find the stock and if it cannot, the stock will be added
-     * The method will also update the lifetime values
+     * The method will also update users the lifetime values
      * @param symbol, name, numShares, pricePerShare
      * @return finalPrice
      */
@@ -64,7 +64,7 @@ public class Portfolio
 
     /**
      * This method will sell stock shares with however many shares the user inputs. if the shares are less than or equal to 0, the stock will be removed from the array list
-     * The method will also update the lifetime values
+     * The method will also update the users lifetime values
      * @param symbol,shares
      * @return finalPrice
      */
@@ -88,7 +88,7 @@ public class Portfolio
     }
 
     /**
-     * Gets the current price of the sock
+     * Gets users current value
      * @returns currentValue
      */
     public double getCurrentValue()
