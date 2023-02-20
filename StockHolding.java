@@ -68,8 +68,12 @@ public class StockHolding
      */
     public double buyShares(int shares, double pricePerShare)
     {
-        double theShares = shares;
-        return theShares*pricePerShare;
+        if(price >= pricePerShare)
+        {
+            price = pricePerShare;
+        }
+        numShares += shares;
+        return shares*pricePerShare;
     }
 
     /**
@@ -79,10 +83,15 @@ public class StockHolding
      * @return symbol
      * 
      */
-    public double sharesToSell(int shares)
+    
+    public double sellShares(int shares)
     {
-        double theShares = shares;
-        return theShares*price;
+        if(shares <= numShares)
+        {
+            numShares -= shares;
+            return shares*price;
+        }
+        return 0.0;
     }
 
     /**

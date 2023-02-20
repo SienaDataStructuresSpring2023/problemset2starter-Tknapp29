@@ -15,8 +15,8 @@ public class Portfolio
     public Portfolio()
     {
         stocks = new ArrayList<StockHolding>();
-        this.lifeTime = 0;
-        this.lifeTimePayout = 0;
+        this.lifeTime = 0.0;
+        this.lifeTimePayout = 0.0;
     }
 
     public double getLifeTime()
@@ -32,16 +32,18 @@ public class Portfolio
     public double buyStock(String symbol, String name, int numShares,double pricePerShare)
     {
         double finalPrice = 0.0;
-        if(stocks.contains(getIndex(symbol)))
+        int index = getIndex(symbol);
+        if(index != -1)
         {
-            finalPrice = numShares*pricePerShare;
-            lifeTime = lifeTime + finalPrice;
+            finalPrice = stocks.get(index).buyShares(numShares,pricePerShare);
         }
         else
         {
             StockHolding newStock = new StockHolding(symbol, name, numShares, pricePerShare);
             stocks.add(newStock);
+            finalPrice = numShares*pricePerShare;
         }
+        lifeTime = lifeTime + finalPrice;
         return finalPrice;
 
     }
@@ -49,16 +51,18 @@ public class Portfolio
     public double sellStock(String symbol, int shares)
     {
         double finalPrice = 0.0;
-        for(StockHolding s : stocks)
+        int index = getIndex(symbol);
+        if(index != -1)
         {
-            if(stocks.contains(getIndex(symbol)))
+            if(stocks.get(index).getNumShares() <= 0)
             {
-                finalPrice = s.sharesToSell(shares);
+                stocks.remove(index);
             }
-            if(s.getNumShares() <= 0)
+            else
             {
-                stocks.remove(s);
+                finalPrice = stocks.get(index).sellShares(shares);
             }
+        lifeTimePayout = lifeTimePayout + finalPrice;
         }
         return finalPrice;
     }
@@ -75,12 +79,14 @@ public class Portfolio
 
     private int getIndex(String symbol)
     {
+        int i =0;
         for(StockHolding s : stocks)
         {
-            if(s.equals(symbol))
+            if(s.getSymbol().equals(symbol))
             {
-                return stocks.indexOf(symbol);
+                return i;
             }
+            i++;
         }    
         return -1;
     }
